@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Tasks 1</title>
+  </head>
+  <body>
+    <script>
+      //Написать метод/функцию, который/которая на вход принимает массив городов. В качестве результата возвращает строку, где города разделены запятыми, а в конце стоит точка.
+
+      {
+        const arrOfCities = ["Москва", "Санкт-Петербург", "Воронеж", "Обнинск"];
+
+        const functionFromArrToStr = (arr) => {
+          return arr.join(",") + ".";
+        };
+
+        console.log(functionFromArrToStr(arrOfCities));
+      }
+
+      //Написать метод/функцию, который/которая на вход принимает число (float), а на выходе получает число, округленное до пятерок.
+
+      {
+        const functionRoundingNumber = (num) => {
+          const roundingNumToFive = num % 5;
+
+          if (roundingNumToFive >= 2.5) {
+            return num - roundingNumToFive + 5;
+          } else if (roundingNumToFive < 2.5) {
+            return num - roundingNumToFive;
+          } else {
+            return num;
+          }
+        };
+
+        const num1 = 27;
+        const num2 = 27.8;
+        const num3 = 41.7;
+
+        console.log(functionRoundingNumber(num1));
+        console.log(functionRoundingNumber(num2));
+        console.log(functionRoundingNumber(num3));
+      }
+
+      //Написать метод/функцию, который/которая на вход принимает число (int), а на выходе выдает слово “компьютер” в падеже, соответствующем указанному количеству. Например, «25 компьютеров», «41 компьютер», «1048 компьютеров».
+
+      {
+        const functionChangingCase = (num) => {
+          const number = String(num);
+          const arrOfNums = [];
+
+          for (let i = 0; i < number.length; i++) {
+            arrOfNums.push(number.charAt(i));
+          }
+
+          const finishPos = arrOfNums[arrOfNums.length - 1];
+          const prevPos = arrOfNums[arrOfNums.length - 2];
+
+          if (finishPos === 1 && prevPos !== 1) {
+            console.log(`${num} компьютер`);
+          }
+
+          if (finishPos >= 2 && finishPos <= 4 && prevPos !== 1) {
+            console.log(`${num} компьютера`);
+          }
+
+          if (
+            (finishPos >= 5 && finishPos <= 9) ||
+            finishPos === "0" ||
+            (finishPos === 1 && prevPos === 1) ||
+            (finishPos >= 2 && finishPos <= 4 && prevPos === 1)
+          ) {
+            console.log(`${num} компьютеров`);
+          }
+        };
+
+        const num1 = 25;
+        const num2 = 41;
+        const num3 = 1048;
+
+        functionChangingCase(num1);
+        functionChangingCase(num2);
+        functionChangingCase(num3);
+      }
+
+      //Написать метод/функцию, который/которая на вход принимает целое число, а на выходе возвращает то, является ли число простым (не имеет делителей кроме 1 и самого себя).
+
+      {
+        const functionIsSimpleNumber = (num) => {
+          let numByComparison = 0;
+          for (let i = 2; i <= num - 1; i++) {
+            let remainderOfDivision = num % i;
+            if (remainderOfDivision === 0) {
+              numByComparison = numByComparison + 1;
+            }
+          }
+
+          if (numByComparison === 0) {
+            console.log(`${num} - это простое число`);
+          } else {
+            console.log(`${num} - не является простым числом`);
+          }
+        };
+
+        const num1 = 1;
+        const num2 = 2;
+        const num3 = 3;
+
+        functionIsSimpleNumber(num1);
+        functionIsSimpleNumber(num2);
+        functionIsSimpleNumber(num3);
+      }
+
+      //Написать метод, который определяет, какие элементы присутствуют в двух экземплярах в каждом из массивов (= в двух и более, причем в каждом). На вход подаются два массива. На выходе массив с необходимыми совпадениями.
+      {
+        const functionIsRepetitionInArrays = (arr1, arr2) => {
+          const resultArr = [];
+          let myMap = arr1.reduce((storage, i) => {
+            storage[i] = storage[i] ? storage[i] + 1 : 1;
+            return storage;
+          }, {});
+          for (let i = 0; i < arr2.length; i++) {
+            const currentNum1 = arr1[i];
+            const currentNum2 = arr2[i];
+
+            let numOfOccurAtFirstArr1 = myMap[currentNum1];
+            let numOfOccurAtFirstArr2 = myMap[currentNum2];
+
+            if (
+              numOfOccurAtFirstArr1 &&
+              numOfOccurAtFirstArr2 &&
+              numOfOccurAtFirstArr1 > 1 &&
+              numOfOccurAtFirstArr2 > 1
+            ) {
+              resultArr.push(currentNum2);
+              myMap[currentNum2] -= 2;
+            }
+          }
+          return resultArr;
+        };
+
+        const arr1 = [7, 17, 1, 9, 1, 17, 56, 56, 23];
+        const arr2 = [56, 17, 17, 1, 23, 34, 23, 1, 8, 1];
+
+        console.log(functionIsRepetitionInArrays(arr1, arr2));
+      }
+
+      //Написать метод, который в консоль выводит таблицу умножения. На вход метод получает число, до которого выводит таблицу умножения. В консоли должна появиться таблица. Например, если на вход пришло число 5, то получим:
+      {
+        const functionCalcMultiTable = (num) => {
+          let arr = [];
+          let str = " ";
+          for (let i = 1; i <= num; i++) {
+            let a = [i];
+            str += " " + a.toString().padStart(2, " ");
+          }
+          str += "\n";
+          for (let i = 1; i <= num; i++) {
+            arr[i] = [];
+
+            for (let j = 1; j <= num; j++) {
+              arr[i][j] = i * j;
+            }
+          }
+
+          for (let i = 1; i <= num; i++) {
+            let b = [i];
+            str += b;
+
+            for (let j = 1; j <= num; j++) {
+              let multiply = arr[i][j];
+              str += " " + multiply.toString().padStart(2, " ");
+            }
+
+            str += "\n";
+          }
+          console.log(str);
+        };
+        functionCalcMultiTable(9);
+      }
+    </script>
+  </body>
+</html>
